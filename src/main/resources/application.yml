@@ -1,0 +1,11 @@
+server:
+  servlet:
+    context-path: /api
+
+spring:
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: create
