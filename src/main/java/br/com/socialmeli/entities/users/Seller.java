@@ -1,5 +1,7 @@
 package br.com.socialmeli.entities.users;
 
+import br.com.socialmeli.entities.post.Post;
+
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.Set;
@@ -15,6 +17,9 @@ public class Seller extends User {
 
     @OneToMany(mappedBy = "seller")
     private Set<SellerFollow> followers;
+
+    @OneToMany(mappedBy = "seller")
+    private Set<Post> posts;
 
     public Set<SellerFollow> getFollowers() {
         return followers;

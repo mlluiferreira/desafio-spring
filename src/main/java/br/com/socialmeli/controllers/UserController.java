@@ -4,6 +4,7 @@ import br.com.socialmeli.dtos.user.client.ClientFollowedDTO;
 import br.com.socialmeli.dtos.user.seller.SellerCountDTO;
 import br.com.socialmeli.dtos.user.seller.SellerFollowersDTO;
 import br.com.socialmeli.services.user.UserService;
+import br.com.socialmeli.services.user.UserServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
