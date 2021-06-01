@@ -3,7 +3,6 @@ package br.com.socialmeli;
 import br.com.socialmeli.dtos.user.CreateUserDTO;
 import br.com.socialmeli.entities.users.UserType;
 import br.com.socialmeli.services.user.UserService;
-import br.com.socialmeli.services.user.UserServiceImpl;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
