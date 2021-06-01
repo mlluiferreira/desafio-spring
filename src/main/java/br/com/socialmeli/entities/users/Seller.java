@@ -10,7 +10,7 @@ import static br.com.socialmeli.entities.users.UserType.SELLER;
 public class Seller extends User {
 
     public Seller() {
-        this.userType = SELLER;
+        this.type = SELLER;
     }
 
     @OneToMany(mappedBy = "seller")

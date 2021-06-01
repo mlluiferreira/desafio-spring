@@ -10,7 +10,7 @@ import javax.persistence.MapsId;
 public class SellerFollow {
 
     @EmbeddedId
-    private SellerFollowKey id;
+    private SellerFollowKey id = new SellerFollowKey();
 
     @ManyToOne
     @MapsId("clientId")

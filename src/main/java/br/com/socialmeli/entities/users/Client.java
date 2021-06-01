@@ -10,17 +10,17 @@ import static br.com.socialmeli.entities.users.UserType.CLIENT;
 public class Client extends User {
 
     public Client() {
-        this.userType = CLIENT;
+        this.type = CLIENT;
     }
 
     @OneToMany(mappedBy = "client")
-    private Set<SellerFollow> followings;
+    private Set<SellerFollow> followed;
 
-    public Set<SellerFollow> getFollowings() {
-        return followings;
+    public Set<SellerFollow> getFollowed() {
+        return followed;
     }
 
-    public void setFollowings(Set<SellerFollow> followings) {
-        this.followings = followings;
+    public void setFollowed(Set<SellerFollow> followings) {
+        this.followed = followings;
     }
 }

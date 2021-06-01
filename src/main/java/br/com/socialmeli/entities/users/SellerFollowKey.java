@@ -15,6 +15,13 @@ public class SellerFollowKey implements Serializable {
     @Column(name = "seller_id")
     Long sellerId;
 
+    public SellerFollowKey() { }
+
+    public SellerFollowKey(Long clientId, Long sellerId) {
+        this.clientId = clientId;
+        this.sellerId = sellerId;
+    }
+
     public Long getClientId() {
         return clientId;
     }

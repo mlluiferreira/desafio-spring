@@ -3,6 +3,7 @@ package br.com.socialmeli.entities.users;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -13,12 +14,13 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     @Id
+    @GeneratedValue
     private Long id;
 
     private String name;
 
     @Enumerated(EnumType.STRING)
-    protected UserType userType;
+    protected UserType type;
 
     public User() { }
 
@@ -43,7 +45,7 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public UserType getUserType() {
-        return userType;
+    public UserType getType() {
+        return type;
     }
 }
