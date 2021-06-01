@@ -1,6 +1,8 @@
 package br.com.socialmeli.entities.users;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -14,6 +16,9 @@ public class User implements Serializable {
     private Long id;
 
     private String name;
+
+    @Enumerated(EnumType.STRING)
+    protected UserType userType;
 
     public User() { }
 
@@ -36,5 +41,9 @@ public class User implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public UserType getUserType() {
+        return userType;
     }
 }
