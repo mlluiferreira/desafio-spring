@@ -9,6 +9,7 @@ import br.com.socialmeli.entities.post.Post;
 import br.com.socialmeli.entities.product.Product;
 import br.com.socialmeli.entities.users.Seller;
 import br.com.socialmeli.exceptions.product.ProductNotFoundException;
+import br.com.socialmeli.exceptions.user.ClientNotFoundException;
 import br.com.socialmeli.repositories.post.PostRepository;
 import br.com.socialmeli.services.Product.ProductService;
 import br.com.socialmeli.services.user.UserService;
@@ -58,17 +59,22 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostFromSellerByClientDTO postListOfSellerThaClientFollowBetweenLastTwoWeeksAndOrderedByDateDesc(Long clientId) {
+        if(userService.findClientById(clientId) == null) throw new ClientNotFoundException(null);
+
         LocalDate today = LocalDate.now();
         LocalDate twoWeeksAgo = today.minusWeeks(2);
+
         List<Long> sellersFollowedByClient = userService.sellersIdFollowedByClient(clientId);
         List<PostDTO> posts = postRepository.findBySellerIdInAndCreationDateBetweenOrderByCreationDate(
                 sellersFollowedByClient,
                 twoWeeksAgo,
                 today
         ).stream().map(this::mapperToPostDTO).collect(Collectors.toList());
+
         PostFromSellerByClientDTO postFromSellerByClientDTO = new PostFromSellerByClientDTO();
         postFromSellerByClientDTO.setPosts(posts);
         postFromSellerByClientDTO.setUserId(clientId);
+
         return postFromSellerByClientDTO;
     }
 
