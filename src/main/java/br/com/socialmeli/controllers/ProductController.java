@@ -2,11 +2,14 @@ package br.com.socialmeli.controllers;
 
 import br.com.socialmeli.dtos.post.CreatePostDTO;
 import br.com.socialmeli.dtos.post.PostDTO;
+import br.com.socialmeli.dtos.post.PostFromSellerByClientDTO;
 import br.com.socialmeli.dtos.product.CreateProductDTO;
 import br.com.socialmeli.dtos.product.ProductDTO;
 import br.com.socialmeli.services.Product.ProductService;
 import br.com.socialmeli.services.post.PostService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,5 +38,11 @@ public class ProductController {
     @PostMapping("/newpost")
     public ResponseEntity<PostDTO> createPost(@RequestBody CreatePostDTO createPostDTO) {
         return ResponseEntity.ok(postService.createPost(createPostDTO));
+    }
+
+    // 0006
+    @GetMapping("/followed/{userId}/list")
+    public ResponseEntity<PostFromSellerByClientDTO> postListOfSellerThatUserFollow(@PathVariable("userId") Long userId) {
+        return ResponseEntity.ok(postService.postListOfSellerThaClientFollowBetweenLastTwoWeeksAndOrderedByDateDesc(userId));
     }
 }

@@ -2,6 +2,7 @@ package br.com.socialmeli.services.post;
 
 import br.com.socialmeli.dtos.post.CreatePostDTO;
 import br.com.socialmeli.dtos.post.PostDTO;
+import br.com.socialmeli.dtos.post.PostFromSellerByClientDTO;
 import br.com.socialmeli.dtos.product.ProductDTO;
 import br.com.socialmeli.dtos.user.seller.SellerDTO;
 import br.com.socialmeli.entities.post.Post;
@@ -14,13 +15,17 @@ import br.com.socialmeli.services.user.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PostServiceImpl implements PostService {
-    private final ProductService productService;
 
     private final PostRepository postRepository;
+
+    private final ProductService productService;
 
     private final UserService userService;
 
@@ -51,11 +56,33 @@ public class PostServiceImpl implements PostService {
         return mapperToPostDTO(post, productOp.get());
     }
 
+    @Override
+    public PostFromSellerByClientDTO postListOfSellerThaClientFollowBetweenLastTwoWeeksAndOrderedByDateDesc(Long clientId) {
+        LocalDate today = LocalDate.now();
+        LocalDate twoWeeksAgo = today.minusWeeks(2);
+        List<Long> sellersFollowedByClient = userService.sellersIdFollowedByClient(clientId);
+        List<PostDTO> posts = postRepository.findBySellerIdInAndCreationDateBetweenOrderByCreationDate(
+                sellersFollowedByClient,
+                twoWeeksAgo,
+                today
+        ).stream().map(this::mapperToPostDTO).collect(Collectors.toList());
+        PostFromSellerByClientDTO postFromSellerByClientDTO = new PostFromSellerByClientDTO();
+        postFromSellerByClientDTO.setPosts(posts);
+        postFromSellerByClientDTO.setUserId(clientId);
+        return postFromSellerByClientDTO;
+    }
+
     private PostDTO mapperToPostDTO(Post post, ProductDTO productDTO) {
         PostDTO postDTO = new PostDTO();
         BeanUtils.copyProperties(post, postDTO);
         postDTO.setUserId(post.getSeller().getId());
         postDTO.setProduct(productDTO);
         return postDTO;
+    }
+
+    private PostDTO mapperToPostDTO(Post post) {
+        ProductDTO productDTO = new ProductDTO();
+        BeanUtils.copyProperties(post.getProduct(), productDTO);
+        return mapperToPostDTO(post, productDTO);
     }
 }

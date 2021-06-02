@@ -8,12 +8,16 @@ import br.com.socialmeli.dtos.user.seller.SellerCountDTO;
 import br.com.socialmeli.dtos.user.seller.SellerDTO;
 import br.com.socialmeli.dtos.user.seller.SellerFollowersDTO;
 
+import java.util.List;
+
 public interface UserService {
     void followSeler(Long clientId, Long sellerId);
 
     SellerFollowersDTO sellerFollowers(Long sellerId);
 
     SellerCountDTO counterSellerFollowers(Long sellerId);
+
+    List<Long> sellersIdFollowedByClient(Long clientId);
 
     ClientFollowedDTO clientFollowed(Long clientId);
 

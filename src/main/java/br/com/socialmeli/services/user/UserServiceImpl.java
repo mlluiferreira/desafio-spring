@@ -16,6 +16,8 @@ import br.com.socialmeli.services.user.seller.SellerService;
 import br.com.socialmeli.services.user.sellerfollower.SellerFollowService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import static br.com.socialmeli.entities.users.UserType.CLIENT;
 import static br.com.socialmeli.entities.users.UserType.SELLER;
 
@@ -49,6 +51,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public SellerDTO findSellerById(Long userId) { return sellerService.findById(userId).orElseThrow(() -> new SellerNotFoundException(null)); }
 
+    @Override
+    public List<Long> sellersIdFollowedByClient(Long clientId) { return sellerFollowService.sellersIdFollowedByClient(clientId); }
 
     // SELLER END
 

@@ -21,6 +21,14 @@ public class Seller extends User {
     @OneToMany(mappedBy = "seller")
     private Set<Post> posts;
 
+    public Set<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(Set<Post> posts) {
+        this.posts = posts;
+    }
+
     public Set<SellerFollow> getFollowers() {
         return followers;
     }

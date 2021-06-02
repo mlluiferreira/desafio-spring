@@ -10,6 +10,8 @@ import br.com.socialmeli.services.user.client.ClientService;
 import br.com.socialmeli.services.user.seller.SellerService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 class SellerFollowServiceImpl implements SellerFollowService {
 
@@ -45,5 +47,10 @@ class SellerFollowServiceImpl implements SellerFollowService {
     @Override
     public Long countSellerFollowers(Long sellerId) {
         return sellerFollowRepository.countBySellerId(sellerId);
+    }
+
+    @Override
+    public List<Long> sellersIdFollowedByClient(Long clientId) {
+        return sellerFollowRepository.findSellerIdByClientId(clientId);
     }
 }
