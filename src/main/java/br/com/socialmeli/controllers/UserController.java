@@ -40,13 +40,13 @@ public class UserController {
         return ResponseEntity.ok(userService.sellerFollowers(sellerId, sort));
     }
 
-    // 0004
+    // 0004 0008
     @GetMapping("/{clientId}/followed/list")
     public ResponseEntity<ClientFollowedDTO> clientFollowed(@PathVariable Long clientId, SortParam sort) {
         return ResponseEntity.ok(userService.clientFollowed(clientId, sort));
     }
 
-    // 0007
+    // 0007 0008
     @PostMapping("/{clientId}/unfolow/{sellerId}")
     public ResponseEntity<?> unfollowSeller(@PathVariable Long clientId, @PathVariable Long sellerId) {
         userService.unfollowSeller(clientId, sellerId);
