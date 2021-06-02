@@ -41,6 +41,9 @@ public class UserServiceImpl implements UserService {
     public void followSeler(Long clientId, Long sellerId) { sellerFollowService.followSeler(clientId, sellerId); }
 
     @Override
+    public void unfollowSeller(Long clientId, Long sellerId) { sellerFollowService.unfollowSeller(clientId, sellerId); }
+
+    @Override
     public SellerFollowersDTO sellerFollowers(Long sellerId) {
         return sellerService.sellerFollowers(sellerId);
     }

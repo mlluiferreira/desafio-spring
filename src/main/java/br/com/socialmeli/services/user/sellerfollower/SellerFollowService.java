@@ -9,4 +9,6 @@ public interface SellerFollowService {
     Long countSellerFollowers(Long sellerId);
 
     List<Long> sellersIdFollowedByClient(Long clientId);
+
+    void unfollowSeller(Long clientId, Long sellerId);
 }

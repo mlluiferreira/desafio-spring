@@ -3,14 +3,17 @@ package br.com.socialmeli.services.user.sellerfollower;
 import br.com.socialmeli.entities.users.Client;
 import br.com.socialmeli.entities.users.Seller;
 import br.com.socialmeli.entities.users.SellerFollow;
+import br.com.socialmeli.entities.users.SellerFollowKey;
 import br.com.socialmeli.exceptions.user.ClientNotFoundException;
 import br.com.socialmeli.exceptions.user.SellerNotFoundException;
+import br.com.socialmeli.exceptions.user.UserNotFollowSeller;
 import br.com.socialmeli.repositories.user.SellerFollowRepository;
 import br.com.socialmeli.services.user.client.ClientService;
 import br.com.socialmeli.services.user.seller.SellerService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 class SellerFollowServiceImpl implements SellerFollowService {
@@ -52,5 +55,14 @@ class SellerFollowServiceImpl implements SellerFollowService {
     @Override
     public List<Long> sellersIdFollowedByClient(Long clientId) {
         return sellerFollowRepository.findSellerIdByClientId(clientId);
+    }
+
+    @Override
+    public void unfollowSeller(Long clientId, Long sellerId) {
+        clientService.findById(clientId).orElseThrow(() -> new ClientNotFoundException(null));
+        sellerService.findById(sellerId).orElseThrow(() -> new SellerNotFoundException(null));
+        SellerFollow sellerFollow = sellerFollowRepository.findById(new SellerFollowKey(clientId, sellerId))
+                .orElseThrow(() -> new UserNotFollowSeller(null));
+        sellerFollowRepository.delete(sellerFollow);
     }
 }
