@@ -1,5 +1,6 @@
 package br.com.socialmeli.services.user;
 
+import br.com.socialmeli.controllers.SortParam;
 import br.com.socialmeli.dtos.user.CreateUserDTO;
 import br.com.socialmeli.dtos.user.UserDTO;
 import br.com.socialmeli.dtos.user.client.ClientDTO;
@@ -44,9 +45,10 @@ public class UserServiceImpl implements UserService {
     public void unfollowSeller(Long clientId, Long sellerId) { sellerFollowService.unfollowSeller(clientId, sellerId); }
 
     @Override
-    public SellerFollowersDTO sellerFollowers(Long sellerId) {
-        return sellerService.sellerFollowers(sellerId);
-    }
+    public SellerFollowersDTO sellerFollowers(Long sellerId) { return sellerFollowService.sellerFollowers(sellerId); }
+
+    @Override
+    public SellerFollowersDTO sellerFollowers(Long sellerId, SortParam sortParam) { return sellerFollowService.sellerFollowers(sellerId, sortParam); }
 
     @Override
     public SellerCountDTO counterSellerFollowers(Long sellerId) { return sellerService.counterSellerFollowers(sellerId); }
@@ -64,9 +66,10 @@ public class UserServiceImpl implements UserService {
     // CLIENT
 
     @Override
-    public ClientFollowedDTO clientFollowed(Long clientId) {
-        return clientService.clientFollowed(clientId);
-    }
+    public ClientFollowedDTO clientFollowed(Long clientId) { return sellerFollowService.clientFollowed(clientId); }
+
+    @Override
+    public ClientFollowedDTO clientFollowed(Long sellerId, SortParam sortParam) { return sellerFollowService.clientFollowed(sellerId, sortParam); }
 
     @Override
     public ClientDTO findClientById(Long clientId) { return clientService.findById(clientId).orElseThrow(() -> new ClientNotFoundException(null)); }

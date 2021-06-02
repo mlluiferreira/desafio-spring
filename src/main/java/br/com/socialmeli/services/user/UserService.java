@@ -1,5 +1,6 @@
 package br.com.socialmeli.services.user;
 
+import br.com.socialmeli.controllers.SortParam;
 import br.com.socialmeli.dtos.user.CreateUserDTO;
 import br.com.socialmeli.dtos.user.UserDTO;
 import br.com.socialmeli.dtos.user.client.ClientDTO;
@@ -19,6 +20,8 @@ public interface UserService {
 
     SellerFollowersDTO sellerFollowers(Long sellerId);
 
+    SellerFollowersDTO sellerFollowers(Long sellerId, SortParam sortParam);
+
     SellerDTO findSellerById(Long userId);
 
     SellerCountDTO counterSellerFollowers(Long sellerId);
@@ -26,6 +29,8 @@ public interface UserService {
     List<Long> sellersIdFollowedByClient(Long clientId);
 
     ClientFollowedDTO clientFollowed(Long clientId);
+
+    ClientFollowedDTO clientFollowed(Long sellerId, SortParam sortParam);
 
     ClientDTO findClientById(Long clientId);
 }

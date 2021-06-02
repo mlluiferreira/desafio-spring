@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -36,14 +37,14 @@ public class UserController {
 
     // 0003
     @GetMapping("/{sellerId}/followers/list")
-    public ResponseEntity<SellerFollowersDTO> sellerFollowers(@PathVariable Long sellerId) {
-        return ResponseEntity.ok(userService.sellerFollowers(sellerId));
+    public ResponseEntity<SellerFollowersDTO> sellerFollowers(@PathVariable Long sellerId, SortParam sort) {
+        return ResponseEntity.ok(userService.sellerFollowers(sellerId, sort));
     }
 
     // 0004
     @GetMapping("/{clientId}/followed/list")
-    public ResponseEntity<ClientFollowedDTO> clientFollowed(@PathVariable Long clientId) {
-        return ResponseEntity.ok(userService.clientFollowed(clientId));
+    public ResponseEntity<ClientFollowedDTO> clientFollowed(@PathVariable Long clientId, SortParam sort) {
+        return ResponseEntity.ok(userService.clientFollowed(clientId, sort));
     }
 
     // 0007

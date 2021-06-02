@@ -13,8 +13,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 class SellerServiceImpl implements SellerService<Seller> {
@@ -22,22 +20,6 @@ class SellerServiceImpl implements SellerService<Seller> {
 
     public SellerServiceImpl(SellerRepository sellerRepository) {
         this.sellerRepository = sellerRepository;
-    }
-
-    @Override
-    public SellerFollowersDTO sellerFollowers(Long sellerId) {
-        Seller seller = sellerRepository.findById(sellerId).orElseThrow(() -> new SellerNotFoundException(null));
-
-        Set<ClientDTO> followers = seller.getFollowers().stream().map(follower -> {
-            Client client = follower.getClient();
-            return new ClientDTO(client.getId(), client.getName());
-        }).collect(Collectors.toSet());
-
-        SellerFollowersDTO sellerFollowersDTO = new SellerFollowersDTO();
-        BeanUtils.copyProperties(seller, sellerFollowersDTO);
-        sellerFollowersDTO.setFollowers(followers);
-
-        return sellerFollowersDTO;
     }
 
     @Override
