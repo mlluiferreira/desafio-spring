@@ -19,6 +19,12 @@ class SellerServiceImpl implements SellerService<Seller> {
         this.sellerRepository = sellerRepository;
     }
 
+    private SellerDTO getSellerDTO(Seller seller) {
+        SellerDTO sellerDTO = new SellerDTO();
+        BeanUtils.copyProperties(seller, sellerDTO);
+        return sellerDTO;
+    }
+
     @Override
     public SellerCountDTO counterSellerFollowers(Long sellerId) {
         Seller seller = sellerRepository.findById(sellerId).orElseThrow(() -> new SellerNotFoundException(null));
@@ -34,8 +40,7 @@ class SellerServiceImpl implements SellerService<Seller> {
     public Optional<SellerDTO> findById(Long sellerId) {
         Seller seller = sellerRepository.findById(sellerId).orElse(null);
         if (seller == null) return Optional.empty();
-        SellerDTO sellerDTO = new SellerDTO();
-        BeanUtils.copyProperties(seller, sellerDTO);
+        SellerDTO sellerDTO = getSellerDTO(seller);
         return Optional.of(sellerDTO);
     }
 
@@ -44,8 +49,7 @@ class SellerServiceImpl implements SellerService<Seller> {
         Seller seller = new Seller();
         BeanUtils.copyProperties(createUserDTO, seller);
         seller = sellerRepository.save(seller);
-        SellerDTO sellerDTO = new SellerDTO();
-        BeanUtils.copyProperties(seller, sellerDTO);
+        SellerDTO sellerDTO = getSellerDTO(seller);
         return sellerDTO;
     }
 }

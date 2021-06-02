@@ -109,7 +109,7 @@ class SellerFollowServiceImpl implements SellerFollowService {
         return getClientFollowedDTO(clientDTO, followed);
     }
 
-    public ClientFollowedDTO getClientFollowedDTO(ClientDTO clientDTO, List<Seller> followed) {
+    private ClientFollowedDTO getClientFollowedDTO(ClientDTO clientDTO, List<Seller> followed) {
         Set<SellerDTO> followedDTO = followed.stream()
                 .map(seller -> new SellerDTO(seller.getId(), seller.getName()))
                 .collect(Collectors.toCollection(LinkedHashSet::new));

@@ -1,6 +1,6 @@
 server:
   servlet:
-    context-path: /api
+    context-path:
 
 spring:
   h2:
@@ -9,4 +9,4 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
-    show-sql: true
+    show-sql: false

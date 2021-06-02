@@ -17,12 +17,17 @@ class ClientServiceImpl implements ClientService<Client> {
         this.clientRepository = clientRepository;
     }
 
+    private ClientDTO getClientDTO(Client client) {
+        ClientDTO clientDTO = new ClientDTO();
+        BeanUtils.copyProperties(client, clientDTO);
+        return clientDTO;
+    }
+
     @Override
     public Optional<ClientDTO> findById(Long sellerId) {
         Client client = clientRepository.findById(sellerId).orElse(null);
         if (client == null) return Optional.empty();
-        ClientDTO clientDTO = new ClientDTO();
-        BeanUtils.copyProperties(client, clientDTO);
+        ClientDTO clientDTO = getClientDTO(client);
         return Optional.of(clientDTO);
     }
 
@@ -31,8 +36,7 @@ class ClientServiceImpl implements ClientService<Client> {
         Client client = new Client();
         BeanUtils.copyProperties(createUserDTO, client);
         client = clientRepository.save(client);
-        ClientDTO clientDTO = new ClientDTO();
-        BeanUtils.copyProperties(client, clientDTO);
+        ClientDTO clientDTO = getClientDTO(client);
         return clientDTO;
     }
 }
