@@ -1,5 +1,6 @@
 package br.com.socialmeli.services.post;
 
+import br.com.socialmeli.controllers.SortParam;
 import br.com.socialmeli.dtos.post.CreatePostDTO;
 import br.com.socialmeli.dtos.post.PostDTO;
 import br.com.socialmeli.dtos.post.PostFromSellerByClientDTO;
@@ -12,8 +13,11 @@ import br.com.socialmeli.exceptions.product.ProductNotFoundException;
 import br.com.socialmeli.exceptions.user.ClientNotFoundException;
 import br.com.socialmeli.repositories.post.PostRepository;
 import br.com.socialmeli.services.Product.ProductService;
+import br.com.socialmeli.services.SortService;
 import br.com.socialmeli.services.user.UserService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -59,16 +63,23 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostFromSellerByClientDTO postListOfSellerThaClientFollowBetweenLastTwoWeeksAndOrderedByDateDesc(Long clientId) {
+        return postListOfSellerThaClientFollowBetweenLastTwoWeeksAndOrderedByDateDesc(clientId, new SortParam("date_desc"));
+    }
+
+    @Override
+    public PostFromSellerByClientDTO postListOfSellerThaClientFollowBetweenLastTwoWeeksAndOrderedByDateDesc(Long clientId, SortParam sort) {
         if(userService.findClientById(clientId) == null) throw new ClientNotFoundException(null);
+
+        if(sort == null || StringUtils.isBlank(sort.getOrder())) sort = new SortParam("date_desc");
 
         LocalDate today = LocalDate.now();
         LocalDate twoWeeksAgo = today.minusWeeks(2);
 
         List<Long> sellersFollowedByClient = userService.sellersIdFollowedByClient(clientId);
-        List<PostDTO> posts = postRepository.findBySellerIdInAndCreationDateBetweenOrderByCreationDate(
+        List<PostDTO> posts = postRepository.findBySellerIdInAndDateBetween(
                 sellersFollowedByClient,
                 twoWeeksAgo,
-                today
+                today, SortService.build(sort)
         ).stream().map(this::mapperToPostDTO).collect(Collectors.toList());
 
         PostFromSellerByClientDTO postFromSellerByClientDTO = new PostFromSellerByClientDTO();

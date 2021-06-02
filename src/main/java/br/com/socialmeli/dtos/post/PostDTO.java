@@ -13,7 +13,7 @@ public class PostDTO {
     private Long userId;
 
     @JsonProperty("date")
-    private LocalDate creationDate;
+    private LocalDate date;
 
     private String category;
 
@@ -26,10 +26,10 @@ public class PostDTO {
     public PostDTO() {
     }
 
-    public PostDTO(Long id, Long userId, LocalDate creationDate, String category, ProductDTO product, BigDecimal price) {
+    public PostDTO(Long id, Long userId, LocalDate date, String category, ProductDTO product, BigDecimal price) {
         this.id = id;
         this.userId = userId;
-        this.creationDate = creationDate;
+        this.date = date;
         this.category = category;
         this.product = product;
         this.price = price;
@@ -51,12 +51,12 @@ public class PostDTO {
         this.userId = userId;
     }
 
-    public LocalDate getCreationDate() {
-        return creationDate;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setCreationDate(LocalDate creationDate) {
-        this.creationDate = creationDate;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public String getCategory() {

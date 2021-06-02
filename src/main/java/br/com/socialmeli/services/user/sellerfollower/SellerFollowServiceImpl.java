@@ -1,6 +1,7 @@
 package br.com.socialmeli.services.user.sellerfollower;
 
 import br.com.socialmeli.controllers.SortParam;
+import br.com.socialmeli.dtos.user.UserDTO;
 import br.com.socialmeli.dtos.user.client.ClientDTO;
 import br.com.socialmeli.dtos.user.client.ClientFollowedDTO;
 import br.com.socialmeli.dtos.user.seller.SellerDTO;
@@ -17,7 +18,6 @@ import br.com.socialmeli.services.SortService;
 import br.com.socialmeli.services.user.client.ClientService;
 import br.com.socialmeli.services.user.seller.SellerService;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashSet;
@@ -73,15 +73,13 @@ class SellerFollowServiceImpl implements SellerFollowService {
     }
 
     // SELLER
+    public SellerFollowersDTO sellerFollowers(Long sellerId) {
+        return sellerFollowers(sellerId, null);
+    }
+
     public SellerFollowersDTO sellerFollowers(Long sellerId, SortParam sortParam) {
         SellerDTO sellerDTO = sellerService.findById(sellerId).orElseThrow(() -> new SellerNotFoundException(null));
         List<Client> followers = sellerFollowRepository.findClientFollowingBySellerId(sellerId, SortService.build(sortParam, "client."));
-        return getSellerFollowersDTO(sellerDTO, followers);
-    }
-
-    public SellerFollowersDTO sellerFollowers(Long sellerId) {
-        SellerDTO sellerDTO = sellerService.findById(sellerId).orElseThrow(() -> new SellerNotFoundException(null));
-        List<Client> followers = sellerFollowRepository.findClientFollowingBySellerId(sellerId, Sort.unsorted());
         return getSellerFollowersDTO(sellerDTO, followers);
     }
 
@@ -102,9 +100,7 @@ class SellerFollowServiceImpl implements SellerFollowService {
     // CLIENT
     @Override
     public ClientFollowedDTO clientFollowed(Long clientId) {
-        ClientDTO clientDTO = clientService.findById(clientId).orElseThrow(() -> new ClientNotFoundException(null));
-        List<Seller> followed = sellerFollowRepository.findSellerFollowingBySellerId(clientId, Sort.unsorted());
-        return getClientFollowedDTO(clientDTO, followed);
+        return clientFollowed(clientId, null);
     }
 
     @Override

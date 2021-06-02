@@ -31,7 +31,7 @@ public class Post implements Serializable {
 
     @CreationTimestamp
     @Column(updatable = false)
-    private LocalDate creationDate = LocalDate.now();
+    private LocalDate date = LocalDate.now();
 
     private String category;
 
@@ -39,11 +39,11 @@ public class Post implements Serializable {
 
     public Post() { }
 
-    public Post(Long id, Seller seller, Product product, LocalDate creationDate, String category, BigDecimal price) {
+    public Post(Long id, Seller seller, Product product, LocalDate date, String category, BigDecimal price) {
         this.id = id;
         this.seller = seller;
         this.product = product;
-        this.creationDate = creationDate;
+        this.date = date;
         this.category = category;
         this.price = price;
     }
@@ -72,12 +72,12 @@ public class Post implements Serializable {
         this.product = product;
     }
 
-    public LocalDate getCreationDate() {
-        return creationDate;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setCreationDate(LocalDate creationDateç) {
-        this.creationDate = creationDateç;
+    public void setDate(LocalDate creationDateç) {
+        this.date = creationDateç;
     }
 
     public String getCategory() {

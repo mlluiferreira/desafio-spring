@@ -42,7 +42,7 @@ public class ProductController {
 
     // 0006
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<PostFromSellerByClientDTO> postListOfSellerThatUserFollow(@PathVariable("userId") Long userId) {
-        return ResponseEntity.ok(postService.postListOfSellerThaClientFollowBetweenLastTwoWeeksAndOrderedByDateDesc(userId));
+    public ResponseEntity<PostFromSellerByClientDTO> postListOfSellerThatUserFollow(@PathVariable("userId") Long userId, SortParam sort) {
+        return ResponseEntity.ok(postService.postListOfSellerThaClientFollowBetweenLastTwoWeeksAndOrderedByDateDesc(userId, sort));
     }
 }
