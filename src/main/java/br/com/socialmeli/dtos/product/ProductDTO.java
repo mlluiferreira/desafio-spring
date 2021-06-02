@@ -1,9 +1,13 @@
 package br.com.socialmeli.dtos.product;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ProductDTO {
 
+    @JsonProperty(value = "product_id", index = 1)
     private Long id;
 
+    @JsonProperty(value = "productName", index = 2)
     private String name;
 
     private String type;

@@ -1,25 +1,26 @@
 package br.com.socialmeli.services.user.seller;
 
+import br.com.socialmeli.dtos.user.CreateUserDTO;
 import br.com.socialmeli.dtos.user.client.ClientDTO;
 import br.com.socialmeli.dtos.user.seller.SellerCountDTO;
+import br.com.socialmeli.dtos.user.seller.SellerDTO;
 import br.com.socialmeli.dtos.user.seller.SellerFollowersDTO;
 import br.com.socialmeli.entities.users.Client;
 import br.com.socialmeli.entities.users.Seller;
 import br.com.socialmeli.exceptions.user.SellerNotFoundException;
 import br.com.socialmeli.repositories.user.SellerRepository;
-import br.com.socialmeli.services.user.base.BaseUserTypeServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-class SellerServiceImpl extends BaseUserTypeServiceImpl<Seller> implements SellerService<Seller> {
+class SellerServiceImpl implements SellerService<Seller> {
     private final SellerRepository sellerRepository;
 
     public SellerServiceImpl(SellerRepository sellerRepository) {
-        super(sellerRepository, Seller.class);
         this.sellerRepository = sellerRepository;
     }
 
@@ -48,5 +49,24 @@ class SellerServiceImpl extends BaseUserTypeServiceImpl<Seller> implements Selle
         sellerCountDTO.setFollowers_count((long) seller.getFollowers().size());
 
         return sellerCountDTO;
+    }
+
+    @Override
+    public Optional<SellerDTO> findById(Long sellerId) {
+        Seller seller = sellerRepository.findById(sellerId).orElse(null);
+        if (seller == null) return Optional.empty();
+        SellerDTO sellerDTO = new SellerDTO();
+        BeanUtils.copyProperties(seller, sellerDTO);
+        return Optional.of(sellerDTO);
+    }
+
+    @Override
+    public SellerDTO save(CreateUserDTO createUserDTO) {
+        Seller seller = new Seller();
+        BeanUtils.copyProperties(createUserDTO, seller);
+        seller = sellerRepository.save(seller);
+        SellerDTO sellerDTO = new SellerDTO();
+        BeanUtils.copyProperties(seller, sellerDTO);
+        return sellerDTO;
     }
 }

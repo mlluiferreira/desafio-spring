@@ -6,7 +6,6 @@ import br.com.socialmeli.repositories.user.UserBaseRepository;
 import org.springframework.beans.BeanUtils;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Optional;
 
 public abstract class BaseUserTypeServiceImpl<T extends User> implements BaseUserTypeService<T> {
     private final UserBaseRepository<T> userRepository;
@@ -34,8 +33,10 @@ public abstract class BaseUserTypeServiceImpl<T extends User> implements BaseUse
         return userRepository.save(user);
     }
 
+/*
     @Override
     public Optional<T> findById(Long userId) {
         return userRepository.findById(userId);
     }
+*/
 }

@@ -2,8 +2,10 @@ package br.com.socialmeli.services.user;
 
 import br.com.socialmeli.dtos.user.CreateUserDTO;
 import br.com.socialmeli.dtos.user.UserDTO;
+import br.com.socialmeli.dtos.user.client.ClientDTO;
 import br.com.socialmeli.dtos.user.client.ClientFollowedDTO;
 import br.com.socialmeli.dtos.user.seller.SellerCountDTO;
+import br.com.socialmeli.dtos.user.seller.SellerDTO;
 import br.com.socialmeli.dtos.user.seller.SellerFollowersDTO;
 
 public interface UserService {
@@ -16,4 +18,8 @@ public interface UserService {
     ClientFollowedDTO clientFollowed(Long clientId);
 
     UserDTO save(CreateUserDTO createUserDTO);
+
+    SellerDTO findSellerById(Long userId);
+
+    ClientDTO findClientById(Long clientId);
 }

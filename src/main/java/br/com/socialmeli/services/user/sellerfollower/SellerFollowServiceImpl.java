@@ -13,30 +13,34 @@ import org.springframework.stereotype.Service;
 @Service
 class SellerFollowServiceImpl implements SellerFollowService {
 
+    private final SellerFollowRepository sellerFollowRepository;
+
     private final SellerService<Seller> sellerService;
 
     private final ClientService<Client> clientService;
 
-    private final SellerFollowRepository sellerFollowRepository;
-
-    public SellerFollowServiceImpl(SellerService<Seller> sellerService, ClientService<Client> clientService, SellerFollowRepository sellerFollowRepository) {
+    public SellerFollowServiceImpl(SellerFollowRepository sellerFollowRepository, SellerService<Seller> sellerService, ClientService<Client> clientService) {
+        this.sellerFollowRepository = sellerFollowRepository;
         this.sellerService = sellerService;
         this.clientService = clientService;
-        this.sellerFollowRepository = sellerFollowRepository;
-    }
-
-    private SellerFollow follow(Client client, Seller seller) {
-        SellerFollow sellerFollow = new SellerFollow();
-        sellerFollow.setSeller(seller);
-        sellerFollow.setClient(client);
-        return sellerFollowRepository.save(sellerFollow);
     }
 
     @Override
     public void followSeler(Long clientId, Long sellerId) {
-        Client client = clientService.findById(clientId).orElseThrow(() -> new ClientNotFoundException(null));
-        Seller seller = sellerService.findById(sellerId).orElseThrow(() -> new SellerNotFoundException(null));
-        follow(client, seller);
+        clientService.findById(clientId).orElseThrow(() -> new ClientNotFoundException(null));
+        sellerService.findById(sellerId).orElseThrow(() -> new SellerNotFoundException(null));
+
+        SellerFollow sellerFollow = new SellerFollow();
+
+        Seller seller = new Seller();
+        seller.setId(sellerId);
+        sellerFollow.setSeller(seller);
+
+        Client client = new Client();
+        client.setId(clientId);
+        sellerFollow.setClient(client);
+
+        sellerFollowRepository.save(sellerFollow);
     }
     @Override
     public Long countSellerFollowers(Long sellerId) {
