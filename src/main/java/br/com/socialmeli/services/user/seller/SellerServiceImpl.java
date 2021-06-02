@@ -1,11 +1,8 @@
 package br.com.socialmeli.services.user.seller;
 
 import br.com.socialmeli.dtos.user.CreateUserDTO;
-import br.com.socialmeli.dtos.user.client.ClientDTO;
 import br.com.socialmeli.dtos.user.seller.SellerCountDTO;
 import br.com.socialmeli.dtos.user.seller.SellerDTO;
-import br.com.socialmeli.dtos.user.seller.SellerFollowersDTO;
-import br.com.socialmeli.entities.users.Client;
 import br.com.socialmeli.entities.users.Seller;
 import br.com.socialmeli.exceptions.user.SellerNotFoundException;
 import br.com.socialmeli.repositories.user.SellerRepository;

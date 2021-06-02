@@ -17,7 +17,6 @@ import br.com.socialmeli.services.SortService;
 import br.com.socialmeli.services.user.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
