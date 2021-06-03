@@ -2,11 +2,13 @@ package br.com.socialmeli.dtos;
 
 import br.com.socialmeli.exceptions.AbstractGeneralException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.http.HttpStatus;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ErrorInfoDTO {
 
     public final String url;

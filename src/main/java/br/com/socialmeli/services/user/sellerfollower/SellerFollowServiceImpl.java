@@ -9,9 +9,10 @@ import br.com.socialmeli.entities.users.Client;
 import br.com.socialmeli.entities.users.Seller;
 import br.com.socialmeli.entities.users.SellerFollow;
 import br.com.socialmeli.entities.users.SellerFollowKey;
+import br.com.socialmeli.exceptions.user.ClientAlreadyFollowSellerException;
 import br.com.socialmeli.exceptions.user.ClientNotFoundException;
 import br.com.socialmeli.exceptions.user.SellerNotFoundException;
-import br.com.socialmeli.exceptions.user.UserNotFollowSeller;
+import br.com.socialmeli.exceptions.user.UserNotFollowSellerException;
 import br.com.socialmeli.repositories.user.SellerFollowRepository;
 import br.com.socialmeli.services.SortService;
 import br.com.socialmeli.services.user.client.ClientService;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -44,6 +46,9 @@ class SellerFollowServiceImpl implements SellerFollowService {
         clientService.findById(clientId).orElseThrow(() -> new ClientNotFoundException(null));
         sellerService.findById(sellerId).orElseThrow(() -> new SellerNotFoundException(null));
 
+        Optional<SellerFollow> followOp = sellerFollowRepository.findById(new SellerFollowKey(clientId, sellerId));
+        if (followOp.isPresent()) throw new ClientAlreadyFollowSellerException(null);
+
         SellerFollow sellerFollow = new SellerFollow();
 
         Seller seller = new Seller();
@@ -62,7 +67,7 @@ class SellerFollowServiceImpl implements SellerFollowService {
         clientService.findById(clientId).orElseThrow(() -> new ClientNotFoundException(null));
         sellerService.findById(sellerId).orElseThrow(() -> new SellerNotFoundException(null));
         SellerFollow sellerFollow = sellerFollowRepository.findById(new SellerFollowKey(clientId, sellerId))
-                .orElseThrow(() -> new UserNotFollowSeller(null));
+                .orElseThrow(() -> new UserNotFollowSellerException(null));
         sellerFollowRepository.delete(sellerFollow);
     }
 

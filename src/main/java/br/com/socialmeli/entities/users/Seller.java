@@ -9,7 +9,7 @@ import java.util.Set;
 import static br.com.socialmeli.entities.users.UserType.SELLER;
 
 @Entity
-public class Seller extends User {
+public class Seller extends Client {
 
     public Seller() {
         this.type = SELLER;
