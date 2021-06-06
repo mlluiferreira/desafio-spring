@@ -11,4 +11,6 @@ public interface PostRepository extends PagingAndSortingRepository<Post, Long> {
     List<Post> findBySellerIdInAndDateBetween(List<Long> sellerId, LocalDate startDate, LocalDate endDate);
 
     List<Post> findBySellerIdInAndDateBetween(List<Long> sellerId, LocalDate startDate, LocalDate endDate, Sort sort);
+
+    Long countBySellerIdAndHasPromoTrue(Long sellerId);
 }

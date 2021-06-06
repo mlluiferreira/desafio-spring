@@ -4,6 +4,7 @@ import br.com.socialmeli.controllers.SortParam;
 import br.com.socialmeli.dtos.post.CreateRegularPostDTO;
 import br.com.socialmeli.dtos.post.PostDTO;
 import br.com.socialmeli.dtos.post.PostFromSellerByClientDTO;
+import br.com.socialmeli.dtos.post.PostPromoCountDTO;
 import br.com.socialmeli.dtos.product.ProductDTO;
 import br.com.socialmeli.dtos.user.seller.SellerDTO;
 import br.com.socialmeli.entities.post.Post;
@@ -37,6 +38,13 @@ public class PostServiceImpl implements PostService {
         this.productService = productService;
         this.postRepository = postRepository;
         this.userService = userService;
+    }
+
+    @Override
+    public PostPromoCountDTO countPromoPost(Long sellerId) {
+        SellerDTO seller = userService.findSellerById(sellerId);
+        Long numberOfPromoPost = postRepository.countBySellerIdAndHasPromoTrue(sellerId);
+        return new PostPromoCountDTO(sellerId, seller.getName(), numberOfPromoPost);
     }
 
     @Override

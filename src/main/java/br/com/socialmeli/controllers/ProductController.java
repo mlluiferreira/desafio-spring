@@ -4,6 +4,7 @@ import br.com.socialmeli.dtos.post.CreateRegularPostDTO;
 import br.com.socialmeli.dtos.post.CreatePromoPostDTO;
 import br.com.socialmeli.dtos.post.PostDTO;
 import br.com.socialmeli.dtos.post.PostFromSellerByClientDTO;
+import br.com.socialmeli.dtos.post.PostPromoCountDTO;
 import br.com.socialmeli.dtos.product.CreateProductDTO;
 import br.com.socialmeli.dtos.product.ProductDTO;
 import br.com.socialmeli.services.Product.ProductService;
@@ -53,5 +54,11 @@ public class ProductController {
     public ResponseEntity<?> createPromoPost(@RequestBody CreatePromoPostDTO createPromoPostDTO) {
         postService.createPost(createPromoPostDTO);
         return ResponseEntity.ok().build();
+    }
+
+    // 0011
+    @PostMapping("/{sellerId}/countPromo")
+    public ResponseEntity<PostPromoCountDTO> countPromoPost(@PathVariable Long sellerId) {
+        return ResponseEntity.ok(postService.countPromoPost(sellerId));
     }
 }
