@@ -1,11 +1,10 @@
 package br.com.socialmeli.controllers;
 
 import br.com.socialmeli.dtos.SortParam;
-import br.com.socialmeli.dtos.post.CreateRegularPostDTO;
 import br.com.socialmeli.dtos.post.CreatePromoPostDTO;
+import br.com.socialmeli.dtos.post.CreateRegularPostDTO;
 import br.com.socialmeli.dtos.post.PostFromSellerByClientDTO;
 import br.com.socialmeli.dtos.post.PostPromoCountDTO;
-import br.com.socialmeli.dtos.post.PostPromoDTO;
 import br.com.socialmeli.dtos.post.PostPromoListDTO;
 import br.com.socialmeli.dtos.product.CreateProductDTO;
 import br.com.socialmeli.dtos.product.ProductDTO;

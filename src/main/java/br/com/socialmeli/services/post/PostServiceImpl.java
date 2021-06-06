@@ -2,11 +2,11 @@ package br.com.socialmeli.services.post;
 
 import br.com.socialmeli.dtos.SortParam;
 import br.com.socialmeli.dtos.post.CreateRegularPostDTO;
-import br.com.socialmeli.dtos.post.PostRegularDTO;
 import br.com.socialmeli.dtos.post.PostFromSellerByClientDTO;
 import br.com.socialmeli.dtos.post.PostPromoCountDTO;
 import br.com.socialmeli.dtos.post.PostPromoDTO;
 import br.com.socialmeli.dtos.post.PostPromoListDTO;
+import br.com.socialmeli.dtos.post.PostRegularDTO;
 import br.com.socialmeli.dtos.product.ProductDTO;
 import br.com.socialmeli.dtos.user.seller.SellerDTO;
 import br.com.socialmeli.entities.post.Post;
