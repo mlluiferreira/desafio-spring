@@ -12,6 +12,7 @@ import br.com.socialmeli.entities.users.SellerFollowKey;
 import br.com.socialmeli.exceptions.user.ClientAlreadyFollowSellerException;
 import br.com.socialmeli.exceptions.user.ClientNotFoundException;
 import br.com.socialmeli.exceptions.user.SellerNotFoundException;
+import br.com.socialmeli.exceptions.user.UserCantFollowHimSelfException;
 import br.com.socialmeli.exceptions.user.UserNotFollowSellerException;
 import br.com.socialmeli.repositories.user.SellerFollowRepository;
 import br.com.socialmeli.services.SortService;
@@ -43,6 +44,8 @@ class SellerFollowServiceImpl implements SellerFollowService {
 
     @Override
     public void followSeler(Long clientId, Long sellerId) {
+        if (clientId == sellerId)
+            throw new UserCantFollowHimSelfException(null);
         clientService.findById(clientId).orElseThrow(() -> new ClientNotFoundException(null));
         sellerService.findById(sellerId).orElseThrow(() -> new SellerNotFoundException(null));
 
