@@ -1,7 +1,7 @@
 package br.com.socialmeli.services.post;
 
 import br.com.socialmeli.controllers.SortParam;
-import br.com.socialmeli.dtos.post.CreatePostDTO;
+import br.com.socialmeli.dtos.post.CreateRegularPostDTO;
 import br.com.socialmeli.dtos.post.PostDTO;
 import br.com.socialmeli.dtos.post.PostFromSellerByClientDTO;
 import br.com.socialmeli.dtos.product.ProductDTO;
@@ -40,7 +40,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostDTO createPost(CreatePostDTO createPostDTO) {
+    public PostDTO createPost(CreateRegularPostDTO createPostDTO) {
         Optional<ProductDTO> productOp = productService.findById(createPostDTO.getProductId());
         if(productOp.isEmpty()) throw new ProductNotFoundException(createPostDTO.getProductId());
         Product product = new Product();

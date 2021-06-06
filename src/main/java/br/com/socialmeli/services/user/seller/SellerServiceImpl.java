@@ -40,8 +40,7 @@ class SellerServiceImpl implements SellerService<Seller> {
     public Optional<SellerDTO> findById(Long sellerId) {
         Seller seller = sellerRepository.findById(sellerId).orElse(null);
         if (seller == null) return Optional.empty();
-        SellerDTO sellerDTO = getSellerDTO(seller);
-        return Optional.of(sellerDTO);
+        return Optional.of(getSellerDTO(seller));
     }
 
     @Override
@@ -49,7 +48,6 @@ class SellerServiceImpl implements SellerService<Seller> {
         Seller seller = new Seller();
         BeanUtils.copyProperties(createUserDTO, seller);
         seller = sellerRepository.save(seller);
-        SellerDTO sellerDTO = getSellerDTO(seller);
-        return sellerDTO;
+        return getSellerDTO(seller);
     }
 }

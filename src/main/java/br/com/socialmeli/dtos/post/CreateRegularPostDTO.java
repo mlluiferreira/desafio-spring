@@ -2,7 +2,7 @@ package br.com.socialmeli.dtos.post;
 
 import java.math.BigDecimal;
 
-public class CreatePostDTO {
+public class CreateRegularPostDTO {
 
     private Long userId;
 
@@ -12,10 +12,10 @@ public class CreatePostDTO {
 
     private BigDecimal price;
 
-    public CreatePostDTO() {
+    public CreateRegularPostDTO() {
     }
 
-    public CreatePostDTO(Long userId, String category, Long productId, BigDecimal price) {
+    public CreateRegularPostDTO(Long userId, String category, Long productId, BigDecimal price) {
         this.userId = userId;
         this.category = category;
         this.productId = productId;

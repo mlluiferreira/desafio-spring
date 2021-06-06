@@ -37,15 +37,21 @@ public class Post implements Serializable {
 
     private BigDecimal price;
 
+    private Boolean hasPromo = false;
+
+    private BigDecimal discount = new BigDecimal(0);
+
     public Post() { }
 
-    public Post(Long id, Seller seller, Product product, LocalDate date, String category, BigDecimal price) {
+    public Post(Long id, Seller seller, Product product, LocalDate date, String category, BigDecimal price, Boolean hasPromo, BigDecimal discount) {
         this.id = id;
         this.seller = seller;
         this.product = product;
         this.date = date;
         this.category = category;
         this.price = price;
+        this.hasPromo = hasPromo;
+        this.discount = discount;
     }
 
     public Long getId() {
@@ -94,5 +100,21 @@ public class Post implements Serializable {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public Boolean getHasPromo() {
+        return hasPromo;
+    }
+
+    public void setHasPromo(Boolean hasPromo) {
+        this.hasPromo = hasPromo;
+    }
+
+    public BigDecimal getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(BigDecimal discount) {
+        this.discount = discount;
     }
 }

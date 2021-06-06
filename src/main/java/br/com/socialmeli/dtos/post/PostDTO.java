@@ -22,17 +22,22 @@ public class PostDTO {
 
     private BigDecimal price;
 
+    private Boolean hasPromo;
+
+    private BigDecimal discount;
 
     public PostDTO() {
     }
 
-    public PostDTO(Long id, Long userId, LocalDate date, String category, ProductDTO product, BigDecimal price) {
+    public PostDTO(Long id, Long userId, LocalDate date, String category, ProductDTO product, BigDecimal price, Boolean hasPromo, BigDecimal discount) {
         this.id = id;
         this.userId = userId;
         this.date = date;
         this.category = category;
         this.product = product;
         this.price = price;
+        this.hasPromo = hasPromo;
+        this.discount = discount;
     }
 
     public Long getId() {
@@ -81,5 +86,21 @@ public class PostDTO {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public Boolean getHasPromo() {
+        return hasPromo;
+    }
+
+    public void setHasPromo(Boolean hasPromo) {
+        this.hasPromo = hasPromo;
+    }
+
+    public BigDecimal getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(BigDecimal discount) {
+        this.discount = discount;
     }
 }

@@ -1,6 +1,7 @@
 package br.com.socialmeli.controllers;
 
-import br.com.socialmeli.dtos.post.CreatePostDTO;
+import br.com.socialmeli.dtos.post.CreateRegularPostDTO;
+import br.com.socialmeli.dtos.post.CreatePromoPostDTO;
 import br.com.socialmeli.dtos.post.PostDTO;
 import br.com.socialmeli.dtos.post.PostFromSellerByClientDTO;
 import br.com.socialmeli.dtos.product.CreateProductDTO;
@@ -36,13 +37,21 @@ public class ProductController {
 
     // 0005
     @PostMapping("/newpost")
-    public ResponseEntity<PostDTO> createPost(@RequestBody CreatePostDTO createPostDTO) {
-        return ResponseEntity.ok(postService.createPost(createPostDTO));
+    public ResponseEntity<?> createPost(@RequestBody CreateRegularPostDTO createRegularPostDTO) {
+        postService.createPost(createRegularPostDTO);
+        return ResponseEntity.ok().build();
     }
 
     // 0006 0009
     @GetMapping("/followed/{userId}/list")
     public ResponseEntity<PostFromSellerByClientDTO> postListOfSellerThatUserFollow(@PathVariable("userId") Long userId, SortParam sort) {
         return ResponseEntity.ok(postService.postListOfSellerThaClientFollowBetweenLastTwoWeeksAndOrderedByDateDesc(userId, sort));
+    }
+
+    // 0010
+    @PostMapping("/newpromopost")
+    public ResponseEntity<?> createPromoPost(@RequestBody CreatePromoPostDTO createPromoPostDTO) {
+        postService.createPost(createPromoPostDTO);
+        return ResponseEntity.ok().build();
     }
 }
