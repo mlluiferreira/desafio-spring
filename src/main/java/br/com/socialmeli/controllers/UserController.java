@@ -1,5 +1,6 @@
 package br.com.socialmeli.controllers;
 
+import br.com.socialmeli.dtos.SortParam;
 import br.com.socialmeli.dtos.user.client.ClientFollowedDTO;
 import br.com.socialmeli.dtos.user.seller.SellerCountDTO;
 import br.com.socialmeli.dtos.user.seller.SellerFollowersDTO;

@@ -1,6 +1,6 @@
 package br.com.socialmeli.services.user;
 
-import br.com.socialmeli.controllers.SortParam;
+import br.com.socialmeli.dtos.SortParam;
 import br.com.socialmeli.dtos.user.CreateUserDTO;
 import br.com.socialmeli.dtos.user.UserDTO;
 import br.com.socialmeli.dtos.user.client.ClientDTO;

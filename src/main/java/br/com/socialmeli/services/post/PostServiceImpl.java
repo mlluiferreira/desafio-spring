@@ -1,10 +1,12 @@
 package br.com.socialmeli.services.post;
 
-import br.com.socialmeli.controllers.SortParam;
+import br.com.socialmeli.dtos.SortParam;
 import br.com.socialmeli.dtos.post.CreateRegularPostDTO;
-import br.com.socialmeli.dtos.post.PostDTO;
+import br.com.socialmeli.dtos.post.PostRegularDTO;
 import br.com.socialmeli.dtos.post.PostFromSellerByClientDTO;
 import br.com.socialmeli.dtos.post.PostPromoCountDTO;
+import br.com.socialmeli.dtos.post.PostPromoDTO;
+import br.com.socialmeli.dtos.post.PostPromoListDTO;
 import br.com.socialmeli.dtos.product.ProductDTO;
 import br.com.socialmeli.dtos.user.seller.SellerDTO;
 import br.com.socialmeli.entities.post.Post;
@@ -41,6 +43,17 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public PostPromoListDTO postPromoListFromSeller(Long sellerId) {
+        SellerDTO sellerDTO = userService.findSellerById(sellerId);
+        List<Post> posts = postRepository.findBySellerIdAndHasPromoTrue(sellerId);
+        PostPromoListDTO postPromoListDTO = new PostPromoListDTO();
+        postPromoListDTO.setUserId(sellerId);
+        postPromoListDTO.setUserName(sellerDTO.getName());
+        postPromoListDTO.setPosts(posts.stream().map(this::mapperToPostPromoDTO).collect(Collectors.toSet()));
+        return postPromoListDTO;
+    }
+
+    @Override
     public PostPromoCountDTO countPromoPost(Long sellerId) {
         SellerDTO seller = userService.findSellerById(sellerId);
         Long numberOfPromoPost = postRepository.countBySellerIdAndHasPromoTrue(sellerId);
@@ -48,7 +61,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostDTO createPost(CreateRegularPostDTO createPostDTO) {
+    public PostRegularDTO createPost(CreateRegularPostDTO createPostDTO) {
         Optional<ProductDTO> productOp = productService.findById(createPostDTO.getProductId());
         if(productOp.isEmpty()) throw new ProductNotFoundException(createPostDTO.getProductId());
         Product product = new Product();
@@ -65,7 +78,7 @@ public class PostServiceImpl implements PostService {
 
         post = postRepository.save(post);
 
-        return mapperToPostDTO(post, productOp.get());
+        return mapperToPostRegularDTO(post);
     }
 
     @Override
@@ -83,11 +96,11 @@ public class PostServiceImpl implements PostService {
         LocalDate twoWeeksAgo = today.minusWeeks(2);
 
         List<Long> sellersFollowedByClient = userService.sellersIdFollowedByClient(clientId);
-        List<PostDTO> posts = postRepository.findBySellerIdInAndDateBetween(
+        List<PostRegularDTO> posts = postRepository.findBySellerIdInAndDateBetween(
                 sellersFollowedByClient,
                 twoWeeksAgo,
                 today, SortService.build(sort)
-        ).stream().map(this::mapperToPostDTO).collect(Collectors.toList());
+        ).stream().map(this::mapperToPostRegularDTO).collect(Collectors.toList());
 
         PostFromSellerByClientDTO postFromSellerByClientDTO = new PostFromSellerByClientDTO();
         postFromSellerByClientDTO.setPosts(posts);
@@ -96,17 +109,23 @@ public class PostServiceImpl implements PostService {
         return postFromSellerByClientDTO;
     }
 
-    private PostDTO mapperToPostDTO(Post post, ProductDTO productDTO) {
-        PostDTO postDTO = new PostDTO();
-        BeanUtils.copyProperties(post, postDTO);
-        postDTO.setUserId(post.getSeller().getId());
-        postDTO.setProduct(productDTO);
-        return postDTO;
-    }
-
-    private PostDTO mapperToPostDTO(Post post) {
+    private PostRegularDTO mapperToPostRegularDTO(Post post) {
+        PostRegularDTO postRegularDTO = new PostRegularDTO();
+        BeanUtils.copyProperties(post, postRegularDTO);
+        postRegularDTO.setUserId(post.getSeller().getId());
         ProductDTO productDTO = new ProductDTO();
         BeanUtils.copyProperties(post.getProduct(), productDTO);
-        return mapperToPostDTO(post, productDTO);
+        postRegularDTO.setProduct(productDTO);
+        return postRegularDTO;
+    }
+
+    private PostPromoDTO mapperToPostPromoDTO(Post post) {
+        PostPromoDTO postPromoDTO = new PostPromoDTO();
+        BeanUtils.copyProperties(post, postPromoDTO);
+        postPromoDTO.setUserId(post.getSeller().getId());
+        ProductDTO productDTO = new ProductDTO();
+        BeanUtils.copyProperties(post.getProduct(), productDTO);
+        postPromoDTO.setProduct(productDTO);
+        return postPromoDTO;
     }
 }

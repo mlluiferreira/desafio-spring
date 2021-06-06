@@ -1,6 +1,6 @@
 package br.com.socialmeli.services.user.sellerfollower;
 
-import br.com.socialmeli.controllers.SortParam;
+import br.com.socialmeli.dtos.SortParam;
 import br.com.socialmeli.dtos.user.client.ClientDTO;
 import br.com.socialmeli.dtos.user.client.ClientFollowedDTO;
 import br.com.socialmeli.dtos.user.seller.SellerDTO;

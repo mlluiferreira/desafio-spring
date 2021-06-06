@@ -1,4 +1,4 @@
-package br.com.socialmeli.controllers;
+package br.com.socialmeli.dtos;
 
 public class SortParam {
 

@@ -5,7 +5,7 @@ import br.com.socialmeli.dtos.product.ProductDTO;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class PostPromoDTO extends PostDTO {
+public class PostPromoDTO extends PostRegularDTO {
     private Boolean hasPromo;
 
     private BigDecimal discount;
@@ -13,8 +13,8 @@ public class PostPromoDTO extends PostDTO {
     public PostPromoDTO() {
     }
 
-    public PostPromoDTO(Long id, Long userId, LocalDate date, String category, ProductDTO product, BigDecimal price, Boolean hasPromo, BigDecimal discount) {
-        super(id, userId, date, category, product, price, hasPromo, discount);
+    public PostPromoDTO(Long id, Long userId, LocalDate date, String category, ProductDTO product, BigDecimal price) {
+        super(id, userId, date, category, product, price);
         this.hasPromo = hasPromo;
     }
 

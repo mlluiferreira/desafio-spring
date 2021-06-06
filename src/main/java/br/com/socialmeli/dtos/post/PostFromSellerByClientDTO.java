@@ -5,7 +5,7 @@ import java.util.List;
 public class PostFromSellerByClientDTO {
     private Long userId;
 
-    private List<PostDTO> posts;
+    private List<PostRegularDTO> posts;
 
     public Long getUserId() {
         return userId;
@@ -15,11 +15,11 @@ public class PostFromSellerByClientDTO {
         this.userId = userId;
     }
 
-    public List<PostDTO> getPosts() {
+    public List<PostRegularDTO> getPosts() {
         return posts;
     }
 
-    public void setPosts(List<PostDTO> posts) {
+    public void setPosts(List<PostRegularDTO> posts) {
         this.posts = posts;
     }
 }

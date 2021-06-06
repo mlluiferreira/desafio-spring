@@ -1,6 +1,6 @@
 package br.com.socialmeli.services;
 
-import br.com.socialmeli.controllers.SortParam;
+import br.com.socialmeli.dtos.SortParam;
 import org.springframework.data.domain.Sort;
 
 public class SortService {
