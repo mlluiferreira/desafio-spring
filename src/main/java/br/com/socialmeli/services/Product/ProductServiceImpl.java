@@ -3,9 +3,8 @@ package br.com.socialmeli.services.Product;
 import br.com.socialmeli.dtos.product.CreateProductDTO;
 import br.com.socialmeli.dtos.product.ProductDTO;
 import br.com.socialmeli.entities.product.Product;
+import br.com.socialmeli.mapper.product.ProductMapper;
 import br.com.socialmeli.repositories.product.ProductRepository;
-import br.com.socialmeli.services.user.UserService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -14,30 +13,22 @@ import java.util.Optional;
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
-    private final UserService userService;
-
-    public ProductServiceImpl(ProductRepository productRepository, UserService userService) {
+    public ProductServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
-        this.userService = userService;
     }
 
     @Override
     public ProductDTO save(CreateProductDTO createProductDTO) {
-        Product product = new Product();
-        BeanUtils.copyProperties(createProductDTO, product);
+        Product product = ProductMapper.buildProduct(createProductDTO);
         product = productRepository.save(product);
-        ProductDTO productDTO = new ProductDTO();
-        BeanUtils.copyProperties(product, productDTO);
-        return productDTO;
+        return ProductMapper.buildProductDTO(product);
     }
 
     @Override
     public Optional<ProductDTO> findById(Long productId) {
         Optional<Product> productOp = productRepository.findById(productId);
         if (productOp.isEmpty()) return Optional.empty();
-        Product product = productOp.get();
-        ProductDTO productDTO = new ProductDTO();
-        BeanUtils.copyProperties(product, productDTO);
+        ProductDTO productDTO = ProductMapper.buildProductDTO(productOp.get());
         return Optional.of(productDTO);
     }
 }

@@ -14,18 +14,15 @@ import br.com.socialmeli.exceptions.user.ClientNotFoundException;
 import br.com.socialmeli.exceptions.user.SellerNotFoundException;
 import br.com.socialmeli.exceptions.user.UserCantFollowHimSelfException;
 import br.com.socialmeli.exceptions.user.UserNotFollowSellerException;
+import br.com.socialmeli.mapper.user.SellerFollowMapper;
 import br.com.socialmeli.repositories.user.SellerFollowRepository;
 import br.com.socialmeli.services.SortService;
 import br.com.socialmeli.services.user.client.ClientService;
 import br.com.socialmeli.services.user.seller.SellerService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 class SellerFollowServiceImpl implements SellerFollowService {
@@ -43,24 +40,16 @@ class SellerFollowServiceImpl implements SellerFollowService {
     }
 
     @Override
-    public void followSeler(Long clientId, Long sellerId) {
-        if (clientId == sellerId)
+    public void followSeller(Long clientId, Long sellerId) {
+        if (clientId.equals(sellerId))
             throw new UserCantFollowHimSelfException(null);
-        clientService.findById(clientId).orElseThrow(() -> new ClientNotFoundException(null));
-        sellerService.findById(sellerId).orElseThrow(() -> new SellerNotFoundException(null));
+        ClientDTO clientDTO = clientService.findById(clientId).orElseThrow(() -> new ClientNotFoundException(null));
+        SellerDTO sellerDTO = sellerService.findById(sellerId).orElseThrow(() -> new SellerNotFoundException(null));
 
         Optional<SellerFollow> followOp = sellerFollowRepository.findById(new SellerFollowKey(clientId, sellerId));
         if (followOp.isPresent()) throw new ClientAlreadyFollowSellerException(null);
 
-        SellerFollow sellerFollow = new SellerFollow();
-
-        Seller seller = new Seller();
-        seller.setId(sellerId);
-        sellerFollow.setSeller(seller);
-
-        Client client = new Client();
-        client.setId(clientId);
-        sellerFollow.setClient(client);
+        SellerFollow sellerFollow = SellerFollowMapper.buildSellerFollow(sellerDTO, clientDTO);
 
         sellerFollowRepository.save(sellerFollow);
     }
@@ -87,19 +76,7 @@ class SellerFollowServiceImpl implements SellerFollowService {
     public SellerFollowersDTO sellerFollowers(Long sellerId, SortParam sortParam) {
         SellerDTO sellerDTO = sellerService.findById(sellerId).orElseThrow(() -> new SellerNotFoundException(null));
         List<Client> followers = sellerFollowRepository.findClientFollowingBySellerId(sellerId, SortService.build(sortParam, "client."));
-        return getSellerFollowersDTO(sellerDTO, followers);
-    }
-
-    private SellerFollowersDTO getSellerFollowersDTO(SellerDTO sellerDTO, List<Client> followers) {
-        Set<ClientDTO> followersDTO = followers.stream()
-                .map(client -> new ClientDTO(client.getId(), client.getName()))
-                .collect(Collectors.toCollection(LinkedHashSet::new));
-
-        SellerFollowersDTO sellerFollowersDTO = new SellerFollowersDTO();
-        BeanUtils.copyProperties(sellerDTO, sellerFollowersDTO);
-        sellerFollowersDTO.setFollowers(followersDTO);
-
-        return sellerFollowersDTO;
+        return SellerFollowMapper.buildSellerFollowersDTO(sellerDTO, followers);
     }
 
     // END SELLER
@@ -114,19 +91,7 @@ class SellerFollowServiceImpl implements SellerFollowService {
     public ClientFollowedDTO clientFollowed(Long clientId, SortParam sortParam) {
         ClientDTO clientDTO = clientService.findById(clientId).orElseThrow(() -> new ClientNotFoundException(null));
         List<Seller> followed = sellerFollowRepository.findSellerFollowingBySellerId(clientId, SortService.build(sortParam, "seller."));
-        return getClientFollowedDTO(clientDTO, followed);
-    }
-
-    private ClientFollowedDTO getClientFollowedDTO(ClientDTO clientDTO, List<Seller> followed) {
-        Set<SellerDTO> followedDTO = followed.stream()
-                .map(seller -> new SellerDTO(seller.getId(), seller.getName()))
-                .collect(Collectors.toCollection(LinkedHashSet::new));
-
-        ClientFollowedDTO clientFollowedDTO = new ClientFollowedDTO();
-        BeanUtils.copyProperties(clientDTO, clientFollowedDTO);
-        clientFollowedDTO.setFollowed(followedDTO);
-
-        return clientFollowedDTO;
+        return SellerFollowMapper.buildClientFollowedDTO(clientDTO, followed);
     }
     // END CLIENT
 }

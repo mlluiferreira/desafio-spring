@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
     // SELLER
 
     @Override
-    public void followSeler(Long clientId, Long sellerId) { sellerFollowService.followSeler(clientId, sellerId); }
+    public void followSeler(Long clientId, Long sellerId) { sellerFollowService.followSeller(clientId, sellerId); }
 
     @Override
     public void unfollowSeller(Long clientId, Long sellerId) { sellerFollowService.unfollowSeller(clientId, sellerId); }

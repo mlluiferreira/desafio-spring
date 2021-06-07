@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface SellerFollowService {
 
-    void followSeler(Long clientId, Long sellerId);
+    void followSeller(Long clientId, Long sellerId);
 
     List<Long> sellersIdFollowedByClient(Long clientId);
 
