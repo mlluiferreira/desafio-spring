@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "823f3f58-1094-4f5f-afed-6dd2ff17c8fc",
+		"_postman_id": "0e70df35-78a1-4a36-bdbc-7cbd95e7e318",
 		"name": "social-meli",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -213,15 +213,15 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/users/6/followed/list?order=date_asc",
+					"raw": "localhost:8080/product/followed/11/list?order=date_asc",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"users",
-						"6",
+						"product",
 						"followed",
+						"11",
 						"list"
 					],
 					"query": [
