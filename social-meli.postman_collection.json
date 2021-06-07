@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "0e70df35-78a1-4a36-bdbc-7cbd95e7e318",
+		"_postman_id": "dc10c6e0-dcd4-406f-a0d2-be224ae96d62",
 		"name": "social-meli",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -208,7 +208,7 @@
 			"response": []
 		},
 		{
-			"name": "09 - ordenar por data lista de quem usuário segue",
+			"name": "09 - ordenar por data lista posts de quem usuário segue",
 			"request": {
 				"method": "GET",
 				"header": [],
