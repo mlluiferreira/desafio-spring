@@ -1,6 +1,7 @@
 package br.com.socialmeli.dtos.post;
 
 import br.com.socialmeli.dtos.product.ProductDTO;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.math.BigDecimal;
@@ -13,6 +14,7 @@ public class PostRegularDTO {
     private Long userId;
 
     @JsonProperty("date")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate date;
 
     private String category;
