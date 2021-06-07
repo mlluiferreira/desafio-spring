@@ -58,7 +58,7 @@ public class ProductController {
     }
 
     // 0011
-    @PostMapping("/{sellerId}/countPromo")
+    @GetMapping("/{sellerId}/countPromo")
     public ResponseEntity<PostPromoCountDTO> countPromoPost(@PathVariable Long sellerId) {
         return ResponseEntity.ok(postService.countPromoPost(sellerId));
     }

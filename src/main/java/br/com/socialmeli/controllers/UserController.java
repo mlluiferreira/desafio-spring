@@ -48,7 +48,7 @@ public class UserController {
     }
 
     // 0007 0008
-    @PostMapping("/{clientId}/unfolow/{sellerId}")
+    @PostMapping("/{clientId}/unfollow/{sellerId}")
     public ResponseEntity<?> unfollowSeller(@PathVariable Long clientId, @PathVariable Long sellerId) {
         userService.unfollowSeller(clientId, sellerId);
         return ResponseEntity.ok().build();

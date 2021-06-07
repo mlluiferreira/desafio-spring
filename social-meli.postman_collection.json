@@ -1,0 +1,306 @@
+{
+	"info": {
+		"_postman_id": "823f3f58-1094-4f5f-afed-6dd2ff17c8fc",
+		"name": "social-meli",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "01 - cliente seguir um vendedor",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/users/6/follow/11",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"6",
+						"follow",
+						"11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "01 - vendedor seguir um vendedor",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/users/11/follow/12",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"11",
+						"follow",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "02 - quantidade usuários que seguem vendedor",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/users/11/followers/count",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"11",
+						"followers",
+						"count"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "03 - lista usuários que seguem vendedor",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/users/12/followers/list",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"12",
+						"followers",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "04 - lista de quem usuário segue",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/users/6/followed/list",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"6",
+						"followed",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "05 - criar uma nova publicação",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userId\": 11,\r\n  \"category\": \"bli\",\r\n  \"productId\": 3,\r\n  \"price\": 10000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/product/newpost",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"newpost"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "06 - obter lista de post de vendedores que usuário segue",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/product/followed/6/list",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"followed",
+						"6",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "07 - parar de seguir um usuário",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/users/6/unfollow/12",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"6",
+						"unfollow",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "08 - ordenar alfabeticamente lista de seguidores vendedor",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/users/12/followers/list?order=name_desc",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"12",
+						"followers",
+						"list"
+					],
+					"query": [
+						{
+							"key": "order",
+							"value": "name_desc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "09 - ordenar por data lista de quem usuário segue",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/users/6/followed/list?order=date_asc",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"6",
+						"followed",
+						"list"
+					],
+					"query": [
+						{
+							"key": "order",
+							"value": "date_asc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "10 - criar post promocional",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userId\": 11,\r\n  \"category\": \"string\",\r\n  \"productId\": 1,\r\n  \"price\": 100,\r\n  \"hasPromo\": true,\r\n  \"discount\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/product/newpromopost",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"newpromopost"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "11 - contar post promocional vendedor",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/product/11/countPromo",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"11",
+						"countPromo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "12 - obter post promocional vendedor",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/product/11/list",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"11",
+						"list"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
